@@ -1,0 +1,190 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#071329">
+<title>SOLAR 7 | دنیای فضا</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#050d1c;color:#fff;font-family:Tahoma,Arial,sans-serif}
+header{padding:20px;text-align:center;background:#0b1d35;border-bottom:1px solid #23466b}
+.logo{font-size:32px;font-weight:bold;color:#50d9ff;letter-spacing:3px}
+header p{color:#a9c4df;font-size:13px}
+nav{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:15px}
+button{background:#142e4d;color:white;border:1px solid #315478;border-radius:12px;padding:11px 15px;font-size:14px;cursor:pointer}
+button:hover{background:#12628b}
+main{max-width:1000px;margin:auto;padding:18px}
+.hero{background:linear-gradient(135deg,#153e66,#101a34);padding:28px 18px;text-align:center;border-radius:20px}
+.hero h1{font-size:26px}
+.hero p{color:#c5d9ed;line-height:2}
+h2{font-size:20px;margin-top:28px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:12px}
+.card{background:#10233d;border:1px solid #294b70;border-radius:17px;padding:15px 8px;text-align:center;cursor:pointer}
+.card:hover{border-color:#42d8ff;transform:translateY(-3px)}
+.planet{width:65px;height:65px;border-radius:50%;margin:auto auto 12px;box-shadow:inset -13px -9px 17px #0008,0 0 20px #4cbfff22}
+.mercury{background:linear-gradient(135deg,#ddd,#777)}
+.venus{background:linear-gradient(135deg,#ffe1a0,#a95d29)}
+.earth{background:radial-gradient(circle at 30% 30%,#7df,#1765a5 45%,#24643e 48%,#102d54)}
+.mars{background:linear-gradient(135deg,#ffb17d,#a53629)}
+.jupiter{background:repeating-linear-gradient(0deg,#d8b58b 0 8px,#9c6144 9px 15px)}
+.saturn{background:linear-gradient(135deg,#f9e0a2,#8b7049)}
+.uranus{background:linear-gradient(135deg,#d4ffff,#56aebc)}
+.neptune{background:linear-gradient(135deg,#6bbcff,#142b9c)}
+.pluto{background:linear-gradient(135deg,#e8c5a8,#6c5145)}
+.sun{background:radial-gradient(circle,#fff5a4,#ffb52e,#ec5710)}
+.moon{background:linear-gradient(135deg,#fff,#777)}
+.detail,.box{background:#10233d;border:1px solid #294b70;border-radius:18px;padding:18px;margin-top:18px;line-height:2}
+.hidden{display:none}
+small{color:#a9c4df}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+input{width:100%;padding:13px;background:#07172b;border:1px solid #315478;color:white;border-radius:12px;margin:10px 0}
+.answer{display:block;width:100%;text-align:right;margin:9px 0}
+.correct{background:#12613f}
+.wrong{background:#762e37}
+footer{text-align:center;padding:25px;color:#829bb5}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">✦ SOLAR 7 ✦</div>
+<p>کاوشگر هوشمند منظومه شمسی</p>
+<nav>
+<button onclick="page('home')">🏠 خانه</button>
+<button onclick="page('quiz')">🧠 آزمون علمی</button>
+<button onclick="page('fav')">⭐ علاقه‌مندی‌ها</button>
+<button onclick="language()">🌐 English</button>
+</nav>
+</header>
+
+<main>
+<section id="home">
+<div class="hero">
+<h1>به دنیای شگفت‌انگیز فضا خوش آمدی!</h1>
+<p>از زمین تا دورترین سیاره‌ها سفر کن. اطلاعات علمی بخوان، سؤال بپرس و دانسته‌هایت را امتحان کن.</p>
+</div>
+
+<h2>☀️ منظومه شمسی</h2>
+<div class="grid" id="planets"></div>
+
+<h2>🌌 فراتر از منظومه شمسی</h2>
+<div class="grid" id="space"></div>
+
+<div id="detail" class="detail hidden"></div>
+</section>
+
+<section id="quiz" class="hidden">
+<div class="hero"><h1>🧠 آزمون فضایی SOLAR 7</h1><p>به سؤالات جواب بده و امتیاز بگیر!</p></div>
+<div class="box" id="quizbox"></div>
+</section>
+
+<section id="fav" class="hidden">
+<h2>⭐ علاقه‌مندی‌های من</h2>
+<div class="grid" id="favorites"></div>
+</section>
+</main>
+
+<footer>SOLAR 7 | Explore The Universe 🚀</footer>
+
+<script>
+const data=[
+['sun','خورشید','ستاره','خورشید ستاره مرکزی منظومه شمسی است و نور و گرمای زمین را تأمین می‌کند.'],
+['mercury','عطارد','سیاره سنگی','نزدیک‌ترین سیاره به خورشید و کوچک‌ترین سیاره منظومه شمسی است.'],
+['venus','زهره','سیاره سنگی','زهره داغ‌ترین سیاره منظومه شمسی است و جو بسیار غلیظی دارد.'],
+['earth','زمین','سیاره سنگی','خانه ما و تنها سیاره شناخته‌شده دارای حیات است.'],
+['mars','مریخ','سیاره سنگی','مریخ به سیاره سرخ معروف است و دانشمندان آن را بررسی می‌کنند.'],
+['jupiter','مشتری','غول گازی','مشتری بزرگ‌ترین سیاره منظومه شمسی است.'],
+['saturn','زحل','غول گازی','زحل به خاطر حلقه‌های زیبایش مشهور است.'],
+['uranus','اورانوس','غول یخی','اورانوس سیاره‌ای آبی‌رنگ است که تقریباً به پهلو می‌چرخد.'],
+['neptune','نپتون','غول یخی','نپتون دورترین سیاره شناخته‌شده از خورشید است.'],
+['pluto','پلوتو','سیاره کوتوله','پلوتو در کمربند کویپر قرار دارد و یک سیاره کوتوله است.'],
+['moon','ماه','قمر طبیعی','ماه تنها قمر طبیعی زمین است و در جزر و مد نقش دارد.']
+];
+
+const extra=[
+['pluto','سیاره‌های کوتوله','سیاره کوتوله','سرس، پلوتو، هائومیا، ماکی‌ماکی و اریس از سیاره‌های کوتوله شناخته‌شده هستند.'],
+['neptune','کهکشان راه شیری','کهکشان','راه شیری کهکشان خانه منظومه شمسی ماست و صدها میلیارد ستاره دارد.']
+];
+
+let fav=JSON.parse(localStorage.getItem('solar7fav')||'[]');
+let en=false;
+
+function card(x){
+return `<div class="card" onclick="show('${x[0]}','${x[1]}','${x[2]}','${x[3]}')">
+<div class="planet ${x[0]}"></div>
+<strong>${en?translate(x[1]):x[1]}</strong><br><small>${x[2]}</small></div>`;
+}
+function render(){
+document.getElementById('planets').innerHTML=data.slice(0,9).map(card).join('');
+document.getElementById('space').innerHTML=[data[9],data[10],...extra].map(card).join('');
+renderFav();
+}
+function show(id,name,type,desc){
+let d=document.getElementById('detail');
+d.classList.remove('hidden');
+d.innerHTML=`<h2>🌌 ${name}</h2><p>نوع: ${type}</p><p>${desc}</p>
+<div class="actions">
+<button onclick="toggleFav('${id}','${name}','${type}','${desc}')">⭐ افزودن به علاقه‌مندی‌ها</button>
+<button onclick="document.getElementById('detail').classList.add('hidden')">بستن</button>
+</div>`;
+}
+function toggleFav(id,name,type,desc){
+if(fav.some(x=>x[0]===id && x[1]===name)){
+fav=fav.filter(x=>!(x[0]===id && x[1]===name));
+}else{fav.push([id,name,type,desc]);}
+localStorage.setItem('solar7fav',JSON.stringify(fav));
+renderFav();
+}
+function renderFav(){
+document.getElementById('favorites').innerHTML=fav.map(card).join('');
+}
+function page(p){
+['home','quiz','fav'].forEach(x=>document.getElementById(x).classList.toggle('hidden',x!==p));
+if(p==='quiz')startQuiz();
+}
+function language(){
+en=!en;
+document.querySelector('.hero h1').textContent=en?'Welcome to the Universe!':'به دنیای شگفت‌انگیز فضا خوش آمدی!';
+render();
+}
+const questions=[
+['بزرگ‌ترین سیاره منظومه شمسی کدام است؟',['زمین','مشتری','مریخ','زحل'],1],
+['کدام سیاره حلقه‌های معروف دارد؟',['زحل','عطارد','زمین','مریخ'],0],
+['خانه ما کدام سیاره است؟',['زهره','نپتون','زمین','مشتری'],2],
+['ماه چیست؟',['ستاره','قمر طبیعی زمین','سیاره کوتوله','کهکشان'],1],
+['سیاره سرخ کدام است؟',['مریخ','زحل','اورانوس','زهره'],0]
+];
+let qi=0,score=0;
+function startQuiz(){qi=0;score=0;draw();}
+function draw(){
+let box=document.getElementById('quizbox');
+if(qi>=questions.length){
+box.innerHTML=`<h2>آزمون تمام شد! 🎉</h2><h3>امتیاز شما: ${score} از ${questions.length}</h3><button onclick="startQuiz()">تکرار آزمون</button>`;
+return;
+}
+let q=questions[qi];
+box.innerHTML=`<small>سؤال ${qi+1} از ${questions.length} | امتیاز: ${score}</small><h3>${q[0]}</h3>
+${q[1].map((a,i)=>`<button class="answer" onclick="answer(${i},this)">${i+1}. ${a}</button>`).join('')}
+<p id="feedback"></p><button id="next" class="hidden" onclick="qi++;draw()">سؤال بعدی ←</button>`;
+}
+function answer(i,el){
+let q=questions[qi];
+if(document.getElementById('next').classList.contains('hidden')===false)return;
+let buttons=document.querySelectorAll('.answer');
+buttons[q[2]].classList.add('correct');
+if(i===q[2]){
+score++;
+document.getElementById('feedback').textContent='آفرین! پاسخ درست است 🌟';
+}else{
+el.classList.add('wrong');
+document.getElementById('feedback').textContent='پاسخ درست مشخص شده است.';
+}
+document.getElementById('next').classList.remove('hidden');
+}
+const dictionary={'خورشید':'Sun','عطارد':'Mercury','زهره':'Venus','زمین':'Earth','مریخ':'Mars','مشتری':'Jupiter','زحل':'Saturn','اورانوس':'Uranus','نپتون':'Neptune','پلوتو':'Pluto','ماه':'Moon'};
+function translate(x){return dictionary[x]||x;}
+render();
+</script>
+</body>
+</html>
